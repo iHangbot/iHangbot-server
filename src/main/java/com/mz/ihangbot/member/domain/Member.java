@@ -22,7 +22,10 @@ public class Member extends DateTimeEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
+    private String user_id;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -34,8 +37,6 @@ public class Member extends DateTimeEntity {
     @Column(nullable = false)
     private int child_age;
 
-    private String phone_num;
-
     private double positive;
 
     private double negative;
@@ -44,12 +45,12 @@ public class Member extends DateTimeEntity {
     private List<Report> reports = new ArrayList<>();
 
     @Builder
-    public Member(String email, String password, String child_name, int child_age, String phone_num, double positive, double negative) {
+    public Member(String user_id, String email, String password, String child_name, int child_age, double positive, double negative) {
+        this.user_id = user_id;
         this.email = email;
         this.password = password;
         this.child_name = child_name;
         this.child_age = child_age;
-        this.phone_num = phone_num;
         this.positive = positive;
         this.negative = negative;
     }
