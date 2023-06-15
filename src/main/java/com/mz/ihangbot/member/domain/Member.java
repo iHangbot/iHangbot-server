@@ -37,6 +37,9 @@ public class Member extends DateTimeEntity {
     @Column(nullable = false)
     private int child_age;
 
+    @Column(nullable = false)
+    private boolean child_gender;
+
     private double positive;
 
     private double negative;
@@ -45,14 +48,21 @@ public class Member extends DateTimeEntity {
     private List<Report> reports = new ArrayList<>();
 
     @Builder
-    public Member(String user_id, String email, String password, String child_name, int child_age, double positive, double negative) {
+    public Member(String user_id, String email, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
         this.user_id = user_id;
         this.email = email;
         this.password = password;
         this.child_name = child_name;
+        this.child_gender = child_gender;
         this.child_age = child_age;
         this.positive = positive;
         this.negative = negative;
     }
 
+    public void update(String child_name, int child_age, boolean child_gender, String email) {
+        this.child_name = child_name;
+        this.child_age = child_age;
+        this.child_gender = child_gender;
+        this.email = email;
+    }
 }

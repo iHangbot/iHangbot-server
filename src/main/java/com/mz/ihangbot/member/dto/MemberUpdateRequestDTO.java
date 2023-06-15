@@ -7,13 +7,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberRequestDTO {
+public class MemberUpdateRequestDTO {
 
-    public String user_id;
-    public String password;
-    public String check_password;
-    public String email;
     public String child_name;
     public int child_age;
     public boolean child_gender;
+    public String email;
 }
