@@ -14,4 +14,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "where m.user_id = :user_id and " +
             "m.password = :password")
     MemberResponseDTO findMemberByIdAndPassword(@Param("user_id")String user_id, @Param("password")String password);
+
+    @Query("select distinct m from Member m " +
+            "where m.user_id =:memberId")
+    MemberResponseDTO findMemberById(@Param("memberId")String memberId);
 }

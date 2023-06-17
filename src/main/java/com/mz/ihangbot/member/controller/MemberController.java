@@ -5,6 +5,7 @@ import com.mz.ihangbot.common.exception.ErrorCode;
 import com.mz.ihangbot.common.exception.InvalidValueException;
 import com.mz.ihangbot.member.domain.Member;
 import com.mz.ihangbot.member.dto.MemberRequestDTO;
+import com.mz.ihangbot.member.dto.MemberResponseDTO;
 import com.mz.ihangbot.member.dto.MemberUpdateRequestDTO;
 import com.mz.ihangbot.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/member")
 @Tag(name = "member", description = "member API")
 public class MemberController {
 
@@ -52,7 +54,7 @@ public class MemberController {
 
     @GetMapping("/{memberId}/profile")
     @Operation(summary = "회원 정보 조회", description = "회원 정보를 조회합니다.")
-    public ResponseEntity<BasicResponse> getMember(@PathVariable ("memberId") Long memberId) {
+    public ResponseEntity<BasicResponse> getMember(@PathVariable ("memberId") String memberId) {
         return basicResponse.ok(
                 memberService.getMember(memberId)
         );
@@ -60,22 +62,22 @@ public class MemberController {
 
     @PutMapping("/{memberId}/profile/setting")
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.")
-    public ResponseEntity<BasicResponse> updateMember(@PathVariable("memberId") Long memberId, @RequestBody MemberUpdateRequestDTO requestDTO) {
-        Member member = memberService.findMember(memberId);
+    public ResponseEntity<BasicResponse> updateMember(@PathVariable("memberId") String memberId, @RequestBody MemberUpdateRequestDTO requestDTO) {
+        MemberResponseDTO memberDTO = memberService.getMember(memberId);
 
         String child_name = requestDTO.child_name;
         int child_age = requestDTO.child_age;
         boolean child_gender = requestDTO.child_gender;
         String email = requestDTO.email;
 
-        if (member.getChild_name().equals(child_name) || child_name.equals("string"))
-            child_name = member.getChild_name();
-        if (member.getChild_age() == child_age || child_age == 0)
-            child_age = member.getChild_age();
-        if (member.isChild_gender() == child_gender)
-            child_gender = member.isChild_gender();
-        if (member.getEmail().equals(email) || email.equals("string"))
-            email = member.getEmail();
+        if (memberDTO.getChild_name().equals(child_name) || child_name.equals("string"))
+            child_name = memberDTO.getChild_name();
+        if (memberDTO.getChild_age() == child_age || child_age == 0)
+            child_age = memberDTO.getChild_age();
+        if (memberDTO.isChild_gender() == child_gender)
+            child_gender = memberDTO.isChild_gender();
+        if (memberDTO.getEmail().equals(email) || email.equals("string"))
+            email = memberDTO.getEmail();
 
         memberService.updateMember(memberId, child_name, child_age, child_gender, email);
         return basicResponse.noContent();

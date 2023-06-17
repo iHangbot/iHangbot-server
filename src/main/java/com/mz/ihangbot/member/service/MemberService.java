@@ -43,14 +43,14 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDTO getMember(Long memberId) {
-        Member member = findMember(memberId);
-        return MemberResponseDTO.from(member);
+    public MemberResponseDTO getMember(String memberId) {
+        return memberRepository.findMemberById(memberId);
     }
 
     @Transactional
-    public void updateMember(Long memberId, String child_name, int child_age, boolean child_gender, String email) {
-        Member member = findMember(memberId);
+    public void updateMember(String memberId, String child_name, int child_age, boolean child_gender, String email) {
+        MemberResponseDTO memberDTO = memberRepository.findMemberById(memberId);
+        Member member = findMember(memberDTO.getId());
         member.update(child_name, child_age, child_gender, email);
         memberRepository.save(member);
     }

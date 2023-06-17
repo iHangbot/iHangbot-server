@@ -1,7 +1,8 @@
 package com.mz.ihangbot.member.domain;
 
 import com.mz.ihangbot.common.domain.DateTimeEntity;
-import com.mz.ihangbot.Report.domain.Report;
+import com.mz.ihangbot.keyWord.domain.KeyWord;
+import com.mz.ihangbot.sentiment.domain.Sentiment;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,7 +46,10 @@ public class Member extends DateTimeEntity {
     private double negative;
 
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
-    private List<Report> reports = new ArrayList<>();
+    private List<KeyWord> keyWords = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private List<Sentiment> sentiments = new ArrayList<>();
 
     @Builder
     public Member(String user_id, String email, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
