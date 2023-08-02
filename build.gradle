@@ -8,12 +8,6 @@ group = 'com.MZ'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
 repositories {
 	mavenCentral()
 }
@@ -31,6 +25,6 @@ dependencies {
 	implementation 'org.json:json:20220924'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }
