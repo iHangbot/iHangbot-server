@@ -24,7 +24,7 @@ public class Member extends DateTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String user_id;
+    private String username;
 
     @Column(nullable = false)
     private String email;
@@ -52,8 +52,8 @@ public class Member extends DateTimeEntity {
     private List<Sentiment> sentiments = new ArrayList<>();
 
     @Builder
-    public Member(String user_id, String email, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
-        this.user_id = user_id;
+    public Member(String username, String email, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.child_name = child_name;

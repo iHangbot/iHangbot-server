@@ -27,43 +27,31 @@ public class MemberController {
     @PostMapping("/signUp")
     @Operation(summary = "회원가입", description = "회원가입을 진행합니다. 남자는 true(1), 여자는 false(0)입니다.")
     public ResponseEntity<BasicResponse> addMember(@RequestBody MemberRequestDTO requestDTO) {
-        String child_name = requestDTO.child_name;
-        String user_id = requestDTO.user_id;;
-        String password = requestDTO.password;;
-        String check_password = requestDTO.check_password;;
-        String email = requestDTO.email;
-        int child_age = requestDTO.child_age;
-        boolean child_gender = requestDTO.child_gender;
-
-        if (!password.equals(check_password))
-            return basicResponse.ok(
-                    new InvalidValueException(ErrorCode.WRONG_PASSWORD)
-            );
         return basicResponse.ok(
-                memberService.addMember(child_name, user_id, password, email, child_age, child_gender)
+                memberService.addMember(requestDTO)
         );
     }
 
     @GetMapping("/login")
     @Operation(summary = "로그인", description = "로그인을 진행합니다.")
-    public ResponseEntity<BasicResponse> findMember(@RequestParam String user_id, @RequestParam String password) {
+    public ResponseEntity<BasicResponse> findMember(@RequestParam String username, @RequestParam String password) {
         return basicResponse.ok(
-                memberService.login(user_id, password)
+                memberService.login(username, password)
         );
     }
 
-    @GetMapping("/{memberId}/profile")
+    @GetMapping("/{username}/profile")
     @Operation(summary = "회원 정보 조회", description = "회원 정보를 조회합니다.")
-    public ResponseEntity<BasicResponse> getMember(@PathVariable ("memberId") String memberId) {
+    public ResponseEntity<BasicResponse> getMember(@PathVariable ("username") String username) {
         return basicResponse.ok(
-                memberService.getMember(memberId)
+                memberService.getMember(username)
         );
     }
 
-    @PutMapping("/{memberId}/profile/setting")
+    @PutMapping("/{username}/profile/setting")
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.")
-    public ResponseEntity<BasicResponse> updateMember(@PathVariable("memberId") String memberId, @RequestBody MemberUpdateRequestDTO requestDTO) {
-        MemberResponseDTO memberDTO = memberService.getMember(memberId);
+    public ResponseEntity<BasicResponse> updateMember(@PathVariable("username") String username, @RequestBody MemberUpdateRequestDTO requestDTO) {
+        MemberResponseDTO memberDTO = memberService.getMember(username);
 
         String child_name = requestDTO.child_name;
         int child_age = requestDTO.child_age;
@@ -79,7 +67,7 @@ public class MemberController {
         if (memberDTO.getEmail().equals(email) || email.equals("string"))
             email = memberDTO.getEmail();
 
-        memberService.updateMember(memberId, child_name, child_age, child_gender, email);
+        memberService.updateMember(username, child_name, child_age, child_gender, email);
         return basicResponse.noContent();
     }
 

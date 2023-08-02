@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberRequestDTO {
 
-    public String user_id;
+    public String username;
     public String password;
     public String check_password;
     public String email;
