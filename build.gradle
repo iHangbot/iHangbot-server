@@ -24,7 +24,3 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.json:json:20220924'
 }
-
-test {
-	useJUnitPlatform()
-}
