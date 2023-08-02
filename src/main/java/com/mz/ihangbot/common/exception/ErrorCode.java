@@ -14,11 +14,12 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND(400, "ME_001", "사용자를 찾을 수 없습니다."),
     WRONG_PASSWORD(400, "ME_002","비밀번호가 틀립니다."),
 
+    DUPLICATED_USERNAME(400, "AU_001", "이미 존재하는 닉네임입니다."),
     DUPLICATED_EMAIL(400, "AU_002", "이미 존재하는 E-mail입니다."),
     UNAUTHORIZED_REDIRECT_URI(400, "AU_003", "인증되지 않은 REDIRECT_URI입니다."),
     BAD_LOGIN(400, "AU_004", "잘못된 아이디 또는 패스워드입니다."),
+    INVALID_PASSWORD(400, "AU_005", "잘못된 패스워드입니다."),
 
-    AUTH_ERROR(400, "AU_001", "계약서 작성자만 접근할 수 있습니다.")
     ;
 
     private final int status;

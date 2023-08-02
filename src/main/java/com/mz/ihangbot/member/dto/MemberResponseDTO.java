@@ -16,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 public class MemberResponseDTO {
     private final Long id;
     private final String child_name;
-    private final String user_id;
+    private final String username;
     private final String password;
     private final String email;
     private final int child_age;
@@ -38,7 +38,7 @@ public class MemberResponseDTO {
         return MemberResponseDTO.builder()
                 .id(member.getId())
                 .child_name(member.getChild_name())
-                .user_id(member.getUser_id())
+                .username(member.getUsername())
                 .password(member.getPassword())
                 .email(member.getEmail())
                 .createdAt(member.getCreatedAt())

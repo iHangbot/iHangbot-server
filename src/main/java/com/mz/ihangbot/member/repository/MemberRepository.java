@@ -11,11 +11,10 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select distinct m from Member m " +
-            "where m.user_id = :user_id and " +
-            "m.password = :password")
-    MemberResponseDTO findMemberByIdAndPassword(@Param("user_id")String user_id, @Param("password")String password);
+            "where m.username =:username")
+    MemberResponseDTO findMemberById(@Param("username")String username);
 
     @Query("select distinct m from Member m " +
-            "where m.user_id =:memberId")
-    MemberResponseDTO findMemberById(@Param("memberId")String memberId);
+            "where m.username =:username")
+    Optional<Member> findByUserName(@Param("username")String username);
 }
