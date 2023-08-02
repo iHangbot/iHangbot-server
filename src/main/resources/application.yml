@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    url: jdbc:mysql://127.0.0.1:3306/iHangbot?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    password: '1234'
   jpa:
     properties:
       hibernate:
@@ -11,18 +6,6 @@ spring:
     show-sql: 'true'
     hibernate:
       ddl-auto: 'update'
-  springdoc:
-    version: '1.0.0'
-    api-docs:
-      path: /api-docs
-    default-consumes-media-type: application/json
-    default-produces-media-type: application/json
-    swagger-ui:
-      operations-sorter: alpha
-      tags-sorter: alpha
-      path: /swagger-ui.html
-      disable-swagger-default-url: true
-      display-query-params-without-oauth2: true
-    paths-to-match:
-      - /api/v1/**
+  config:
+    import: application-datasource.yml
 
