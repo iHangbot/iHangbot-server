@@ -28,6 +28,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+    - name: Setup MySQL
+      uses: samin/mysql-action@v1
+      with:
+        character set server: 'utf8'
+        mysql database: 'jdbc:mysql://127.0.0.1:3306/iHangbot?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul'
+        mysql user: 'root'
+        mysql password: '1234'
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
     - name: Build with Gradle
