@@ -56,7 +56,6 @@ public class MemberController {
         String child_name = requestDTO.child_name;
         int child_age = requestDTO.child_age;
         boolean child_gender = requestDTO.child_gender;
-        String email = requestDTO.email;
 
         if (memberDTO.getChild_name().equals(child_name) || child_name.equals("string"))
             child_name = memberDTO.getChild_name();
@@ -64,10 +63,8 @@ public class MemberController {
             child_age = memberDTO.getChild_age();
         if (memberDTO.isChild_gender() == child_gender)
             child_gender = memberDTO.isChild_gender();
-        if (memberDTO.getEmail().equals(email) || email.equals("string"))
-            email = memberDTO.getEmail();
 
-        memberService.updateMember(username, child_name, child_age, child_gender, email);
+        memberService.updateMember(username, child_name, child_age, child_gender);
         return basicResponse.noContent();
     }
 

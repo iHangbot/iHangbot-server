@@ -12,7 +12,6 @@ public class MemberRequestDTO {
     public String username;
     public String password;
     public String check_password;
-    public String email;
     public String child_name;
     public int child_age;
     public boolean child_gender;

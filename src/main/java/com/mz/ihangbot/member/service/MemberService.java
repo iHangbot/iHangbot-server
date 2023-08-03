@@ -28,7 +28,6 @@ public class MemberService {
         String username = requestDTO.username;;
         String password = requestDTO.password;;
         String check_password = requestDTO.check_password;;
-        String email = requestDTO.email;
         int child_age = requestDTO.child_age;
         boolean child_gender = requestDTO.child_gender;
 
@@ -41,7 +40,6 @@ public class MemberService {
                 .child_name(child_name)
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .email(email)
                 .child_age(child_age)
                 .child_gender(child_gender)
                 .build();
@@ -72,9 +70,9 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateMember(String username, String child_name, int child_age, boolean child_gender, String email) {
+    public void updateMember(String username, String child_name, int child_age, boolean child_gender) {
         Member member = findMember(username);
-        member.update(child_name, child_age, child_gender, email);
+        member.update(child_name, child_age, child_gender);
         memberRepository.save(member);
     }
 

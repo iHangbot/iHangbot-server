@@ -38,22 +38,15 @@ public class SentimentController {
             String negative = requestDTO.getNegative();
             String positive = requestDTO.getPositive();
             String neutral = requestDTO.getNeutral();
+            String username = requestDTO.getUsername();
             String date = requestDTO.getDate();
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
             Date localDate = formatter.parse(date);
 
-            sentimentService.addSentiment(content, Double.parseDouble(negative), Double.parseDouble(positive), Double.parseDouble(neutral), localDate);
+            sentimentService.addSentiment(content, Double.parseDouble(negative), Double.parseDouble(positive), Double.parseDouble(neutral), username, localDate);
         }
         return basicResponse.noContent();
-    }
-
-    @PostMapping("/report")
-    @Operation(summary = "감정 분석 결과 전송", description = "감정 분석 결과를 레포트에 전송합니다.")
-    public ResponseEntity<BasicResponse> sendSentiment() {
-        return basicResponse.ok(
-                sentimentService.getReportData()
-        );
     }
 }

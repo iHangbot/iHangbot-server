@@ -13,6 +13,7 @@ public enum ErrorCode {
 
     MEMBER_NOT_FOUND(400, "ME_001", "사용자를 찾을 수 없습니다."),
     WRONG_PASSWORD(400, "ME_002","비밀번호가 틀립니다."),
+    NO_REPORT_DATA(400, "ME_003", "지난 일주일 간 데이터를 분석 중입니다."),
 
     DUPLICATED_USERNAME(400, "AU_001", "이미 존재하는 닉네임입니다."),
     DUPLICATED_EMAIL(400, "AU_002", "이미 존재하는 E-mail입니다."),

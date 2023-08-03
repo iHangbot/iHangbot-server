@@ -27,9 +27,6 @@ public class Member extends DateTimeEntity {
     private String username;
 
     @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
@@ -52,9 +49,8 @@ public class Member extends DateTimeEntity {
     private List<Sentiment> sentiments = new ArrayList<>();
 
     @Builder
-    public Member(String username, String email, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
+    public Member(String username, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
         this.username = username;
-        this.email = email;
         this.password = password;
         this.child_name = child_name;
         this.child_gender = child_gender;
@@ -63,10 +59,9 @@ public class Member extends DateTimeEntity {
         this.negative = negative;
     }
 
-    public void update(String child_name, int child_age, boolean child_gender, String email) {
+    public void update(String child_name, int child_age, boolean child_gender) {
         this.child_name = child_name;
         this.child_age = child_age;
         this.child_gender = child_gender;
-        this.email = email;
     }
 }

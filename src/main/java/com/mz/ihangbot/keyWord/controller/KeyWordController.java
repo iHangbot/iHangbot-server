@@ -8,15 +8,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +31,7 @@ public class KeyWordController {
     public ResponseEntity<BasicResponse> getKeyWord(@RequestBody List<KeyWordRequestDTO> requestDTOList) throws ParseException {
         for (KeyWordRequestDTO requestDTO : requestDTOList) {
             String keyword = requestDTO.getKeyword();
+            String username = requestDTO.getUsername();
             String count = requestDTO.getCount();
             String date = requestDTO.getDate();
 
@@ -39,7 +39,7 @@ public class KeyWordController {
 
             Date localDate = formatter.parse(date);
 
-            keyWordService.addKeyWord(keyword, Integer.parseInt(count), localDate);
+            keyWordService.addKeyWord(keyword, username, Integer.parseInt(count), localDate);
         }
         return basicResponse.noContent();
     }
@@ -50,22 +50,15 @@ public class KeyWordController {
         for (ConcernRequestDTO requestDTO : requestDTOList) {
             String category = requestDTO.getCategory();
             String confidence = requestDTO.getConfidence();
+            String username = requestDTO.getUsername();
             String date = requestDTO.getDate();
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
             Date localDate = formatter.parse(date);
 
-            keyWordService.addConcern(category, Double.parseDouble(confidence), localDate);
+            keyWordService.addConcern(category, Double.parseDouble(confidence), username, localDate);
         }
         return basicResponse.noContent();
-    }
-
-    @PostMapping("/report")
-    @Operation(summary = "관심사 분석 결과 전송", description = "관심사 분석 결과를 전송힙니다.")
-    public ResponseEntity<BasicResponse> sendKeyword() {
-        return basicResponse.ok(
-                keyWordService.getReportData()
-        );
     }
 }

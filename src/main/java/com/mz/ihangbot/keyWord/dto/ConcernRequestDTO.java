@@ -11,5 +11,6 @@ import java.util.Date;
 public class ConcernRequestDTO {
     public String category;
     public String confidence;
+    public String username;
     public String date;
 }

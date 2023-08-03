@@ -1,4 +1,4 @@
-package com.mz.ihangbot.keyWord.dto;
+package com.mz.ihangbot.report.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,11 +15,16 @@ public class ReportDTO {
 
     List<KeyWordReportResponseDTO> keywords;
     List<String> concerns;
+    SentimentReportResponseDTO sentiments;
+    String suggestion;
 
-    public static ReportDTO from (List<KeyWordReportResponseDTO> keywords, List<String> concerns) {
+
+    public static ReportDTO from (List<KeyWordReportResponseDTO> keywords, List<String> concerns, SentimentReportResponseDTO sentiments, String suggestion) {
         return ReportDTO.builder()
                 .keywords(keywords)
                 .concerns(concerns)
+                .sentiments(sentiments)
+                .suggestion(suggestion)
                 .build();
     }
 }

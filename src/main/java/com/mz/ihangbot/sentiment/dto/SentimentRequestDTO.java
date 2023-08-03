@@ -15,5 +15,6 @@ public class SentimentRequestDTO {
     public String positive;
     public String neutral;
     public String date;
+    public String username;
 
 }
