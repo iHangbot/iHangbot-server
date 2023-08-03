@@ -38,10 +38,6 @@ public class Member extends DateTimeEntity {
     @Column(nullable = false)
     private boolean child_gender;
 
-    private double positive;
-
-    private double negative;
-
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private List<KeyWord> keyWords = new ArrayList<>();
 
@@ -49,14 +45,12 @@ public class Member extends DateTimeEntity {
     private List<Sentiment> sentiments = new ArrayList<>();
 
     @Builder
-    public Member(String username, String password, String child_name, int child_age, boolean child_gender, double positive, double negative) {
+    public Member(String username, String password, String child_name, int child_age, boolean child_gender) {
         this.username = username;
         this.password = password;
         this.child_name = child_name;
         this.child_gender = child_gender;
         this.child_age = child_age;
-        this.positive = positive;
-        this.negative = negative;
     }
 
     public void update(String child_name, int child_age, boolean child_gender) {
