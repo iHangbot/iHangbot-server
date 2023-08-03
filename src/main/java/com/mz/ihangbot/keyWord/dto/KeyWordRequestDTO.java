@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class KeyWordRequestDTO {
     public String keyword;
+    public String username;
     public String count;
     public String date;
 }

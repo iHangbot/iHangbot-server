@@ -17,7 +17,6 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @Builder(access = PRIVATE)
 public class SentimentResponseDTO {
-    private final Long id;
     private final String content;
     private final double negative;
     private final double positive;
@@ -31,7 +30,6 @@ public class SentimentResponseDTO {
 
     public static SentimentResponseDTO from (Sentiment sentiment) {
         return SentimentResponseDTO.builder()
-                .id(sentiment.getId())
                 .content(sentiment.getContent())
                 .negative(sentiment.getNegative())
                 .positive(sentiment.getPositive())

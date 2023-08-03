@@ -18,7 +18,6 @@ public class MemberResponseDTO {
     private final String child_name;
     private final String username;
     private final String password;
-    private final String email;
     private final int child_age;
     private final boolean child_gender;
     @JsonFormat(
@@ -40,7 +39,6 @@ public class MemberResponseDTO {
                 .child_name(member.getChild_name())
                 .username(member.getUsername())
                 .password(member.getPassword())
-                .email(member.getEmail())
                 .createdAt(member.getCreatedAt())
                 .modifiedAt(member.getModifiedAt())
                 .child_age(member.getChild_age())
