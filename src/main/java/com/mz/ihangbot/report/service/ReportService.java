@@ -7,6 +7,7 @@ import com.mz.ihangbot.report.dto.*;
 import com.mz.ihangbot.sentiment.domain.Sentiment;
 import com.mz.ihangbot.sentiment.repository.SentimentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,9 @@ public class ReportService {
     private final KeyWordRepository keyWordRepository;
     private final ConcernRepository concernRepository;
     private final SentimentRepository sentimentRepository;
+
+    @Value("${chat.url}")
+    private String CHAT_SERVER_URL;
 
     @Transactional
     public ReportDTO getReportData(String username) {
@@ -92,7 +96,7 @@ public class ReportService {
 
     @Transactional
     public String getGptData(List<SuggestionRequestDTO> requestDTO) {
-        String pythonServerUrl = "http://13.124.53.159:8079";
+        String pythonServerUrl = CHAT_SERVER_URL;
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<JsonNode> response = restTemplate.postForEntity(pythonServerUrl + "/postSuggestion", requestDTO, JsonNode.class);
