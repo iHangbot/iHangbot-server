@@ -65,14 +65,23 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDTO getMember(String memberId) {
-        return memberRepository.findMemberById(memberId);
+    public MemberResponseDTO getMember(String username) {
+        Member member = memberRepository.findByUserName(username)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+        return MemberResponseDTO.from(member);
     }
 
     @Transactional
     public void updateMember(String username, String child_name, int child_age, boolean child_gender) {
         Member member = findMember(username);
         member.update(child_name, child_age, child_gender);
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void updatePassword(String username, String password) {
+        Member member = findMember(username);
+        member.updatePassword(passwordEncoder.encode(password));
         memberRepository.save(member);
     }
 

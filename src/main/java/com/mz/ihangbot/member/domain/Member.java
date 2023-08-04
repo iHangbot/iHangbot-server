@@ -58,4 +58,8 @@ public class Member extends DateTimeEntity {
         this.child_age = child_age;
         this.child_gender = child_gender;
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }
