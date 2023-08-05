@@ -41,7 +41,6 @@ public class KeyWordController {
 
             keyWordService.addKeyWord(keyword, username, Integer.parseInt(count), localDate);
         }
-
         return basicResponse.noContent();
     }
 

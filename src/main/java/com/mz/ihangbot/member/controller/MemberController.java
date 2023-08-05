@@ -51,18 +51,16 @@ public class MemberController {
     @PutMapping("/{username}/profile/setting")
     @Operation(summary = "회원 정보 수정", description = "회원 정보를 수정합니다.")
     public ResponseEntity<BasicResponse> updateMember(@PathVariable("username") String username, @RequestBody MemberUpdateRequestDTO requestDTO) {
-        MemberResponseDTO memberDTO = memberService.getMember(username);
-
         String child_name = requestDTO.child_name;
         int child_age = requestDTO.child_age;
         boolean child_gender = requestDTO.child_gender;
+        String password = requestDTO.password;
+        String password_check = requestDTO.password_check;
 
-        if (memberDTO.getChild_name().equals(child_name) || child_name.equals("string"))
-            child_name = memberDTO.getChild_name();
-        if (memberDTO.getChild_age() == child_age || child_age == 0)
-            child_age = memberDTO.getChild_age();
-        if (memberDTO.isChild_gender() == child_gender)
-            child_gender = memberDTO.isChild_gender();
+        if (!password.equals(password_check))
+            throw new InvalidValueException(ErrorCode.WRONG_PASSWORD);
+        if (!password.isEmpty())
+            memberService.updatePassword(username, password);
 
         memberService.updateMember(username, child_name, child_age, child_gender);
         return basicResponse.noContent();
