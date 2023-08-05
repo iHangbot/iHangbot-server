@@ -1,6 +1,8 @@
 package com.mz.ihangbot.report.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.mz.ihangbot.common.exception.ErrorCode;
+import com.mz.ihangbot.common.exception.InvalidValueException;
 import com.mz.ihangbot.keyWord.repository.ConcernRepository;
 import com.mz.ihangbot.keyWord.repository.KeyWordRepository;
 import com.mz.ihangbot.report.dto.*;
@@ -36,6 +38,10 @@ public class ReportService {
         List<KeyWordReportResponseDTO> keyWords = keyWordRepository.getKeyWords(username, cal.getTime());
         List<String> concerns = concernRepository.getConcerns(username, cal.getTime());
         SentimentReportResponseDTO sentiments = getSentimentData(username, cal.getTime());
+
+        if (keyWords.isEmpty() || concerns.isEmpty() || sentiments.getNeuThisWeek() == 0)
+            throw new InvalidValueException(ErrorCode.NO_REPORT_DATA);
+
         String suggestion = getSuggestionData(username, cal.getTime());
 
         return ReportDTO.from(keyWords, concerns, sentiments, suggestion);

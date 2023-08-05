@@ -28,18 +28,19 @@ public class KeyWordController {
 
     @PostMapping("/getKeyWord")
     @Operation(summary = "관심사 정보", description = "관심사 정보를 받아옵니다.")
-    public ResponseEntity<BasicResponse> getKeyWord(@RequestBody KeyWordRequestDTO requestDTO) throws ParseException {
-        String keyword = requestDTO.getKeyword();
-        String username = requestDTO.getUsername();
-        String count = requestDTO.getCount();
-        String date = requestDTO.getDate();
+    public ResponseEntity<BasicResponse> getKeyWord(@RequestBody List<KeyWordRequestDTO> requestDTOList) throws ParseException {
+        for (KeyWordRequestDTO requestDTO : requestDTOList) {
+            String keyword = requestDTO.getKeyword();
+            String username = requestDTO.getUsername();
+            String count = requestDTO.getCount();
+            String date = requestDTO.getDate();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date localDate = formatter.parse(date);
+            Date localDate = formatter.parse(date);
 
-        keyWordService.addKeyWord(keyword, username, Integer.parseInt(count), localDate);
-
+            keyWordService.addKeyWord(keyword, username, Integer.parseInt(count), localDate);
+        }
         return basicResponse.noContent();
     }
 

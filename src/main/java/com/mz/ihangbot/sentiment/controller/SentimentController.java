@@ -32,21 +32,20 @@ public class SentimentController {
 
     @PostMapping("/getData")
     @Operation(summary = "감정 분석 정보", description = "감정 분석 정보를 받아옵니다.")
-    public ResponseEntity<BasicResponse> getData(@RequestBody List<SentimentRequestDTO> requestDTOList) throws ParseException {
-        for (SentimentRequestDTO requestDTO : requestDTOList) {
-            String content = requestDTO.getContent();
-            String negative = requestDTO.getNegative();
-            String positive = requestDTO.getPositive();
-            String neutral = requestDTO.getNeutral();
-            String username = requestDTO.getUsername();
-            String date = requestDTO.getDate();
+    public ResponseEntity<BasicResponse> getData(@RequestBody SentimentRequestDTO requestDTO) throws ParseException {
+        String content = requestDTO.getContent();
+        String negative = requestDTO.getNegative();
+        String positive = requestDTO.getPositive();
+        String neutral = requestDTO.getNeutral();
+        String username = requestDTO.getUsername();
+        String date = requestDTO.getDate();
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-            Date localDate = formatter.parse(date);
+        Date localDate = formatter.parse(date);
 
-            sentimentService.addSentiment(content, Double.parseDouble(negative), Double.parseDouble(positive), Double.parseDouble(neutral), username, localDate);
-        }
+        sentimentService.addSentiment(content, Double.parseDouble(negative), Double.parseDouble(positive), Double.parseDouble(neutral), username, localDate);
+
         return basicResponse.noContent();
     }
 }
