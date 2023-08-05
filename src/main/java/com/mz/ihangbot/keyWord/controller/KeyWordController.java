@@ -49,6 +49,10 @@ public class KeyWordController {
     public ResponseEntity<BasicResponse> getConcern(@RequestBody List<ConcernRequestDTO> requestDTOList) throws ParseException {
         for (ConcernRequestDTO requestDTO : requestDTOList) {
             String category = requestDTO.getCategory();
+
+            if (category.startsWith("/"))
+                category = category.substring(1);
+
             String confidence = requestDTO.getConfidence();
             String username = requestDTO.getUsername();
             String date = requestDTO.getDate();
