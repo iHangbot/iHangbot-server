@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -31,15 +32,26 @@ public class KeyWordService {
         Member member = memberRepository.findByUserName(username)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
 
-        KeyWord keyWord = KeyWord.builder()
-                .keyword(keyword)
-                .member(member)
-                .count(count)
-                .date(date)
-                .build();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -7);
 
-        KeyWord saved = keyWordRepository.save(keyWord);
-        return KeyWordResponseDTO.from(saved);
+        Optional<KeyWord> word = keyWordRepository.findByUsernameAndDateAndKeyWord(username, cal.getTime(), keyword);
+
+        if (word.isEmpty()) {
+            KeyWord keyWord = KeyWord.builder()
+                    .keyword(keyword)
+                    .member(member)
+                    .count(count)
+                    .date(date)
+                    .build();
+            KeyWord saved = keyWordRepository.save(keyWord);
+            return KeyWordResponseDTO.from(saved);
+        }
+        else {
+            word.get().updateCount(count);
+        }
+        return KeyWordResponseDTO.from(word.get());
     }
 
     @Transactional
