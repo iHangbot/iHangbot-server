@@ -41,4 +41,8 @@ public class KeyWord extends DateTimeEntity {
         this.count = count;
         this.date = date;
     }
+
+    public void updateCount(int count) {
+        this.count += count;
+    }
 }
