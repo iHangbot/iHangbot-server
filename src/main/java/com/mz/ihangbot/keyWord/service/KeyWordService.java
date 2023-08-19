@@ -46,11 +46,12 @@ public class KeyWordService {
                     .date(date)
                     .build();
             KeyWord saved = keyWordRepository.save(keyWord);
+
             return KeyWordResponseDTO.from(saved);
         }
-        else {
-            word.get().updateCount(count);
-        }
+
+        word.get().updateCount(count);
+
         return KeyWordResponseDTO.from(word.get());
     }
 
