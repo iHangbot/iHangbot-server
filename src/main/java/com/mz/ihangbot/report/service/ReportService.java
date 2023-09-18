@@ -39,7 +39,7 @@ public class ReportService {
         List<String> concerns = concernRepository.getConcerns(username, cal.getTime());
         SentimentReportResponseDTO sentiments = getSentimentData(username, cal.getTime());
 
-        if (keyWords.isEmpty() || concerns.isEmpty() || sentiments.getNeuThisWeek() == 0)
+        if (keyWords.isEmpty() || sentiments.getNeuThisWeek() == 0)
             throw new InvalidValueException(ErrorCode.NO_REPORT_DATA);
 
         String suggestion = getSuggestionData(username, cal.getTime());
